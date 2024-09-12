@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.5.1
+
+- Fixes vcpkg bad hashes ([vcpkg/#38974](https://github.com/microsoft/vcpkg/issues/38974)).
+- Updates arrow to 17.0.0.
+
+## v0.5.0
+
+- Changed the build process to statically link Apache Arrow. With this change and using the
+[PyCapsule interface](https://arrow.apache.org/docs/format/CDataInterface/PyCapsuleInterface.html), PyBNesian can interoperate
+with different versions of `pyarrow>=14.0.0`. You can now upgrade pyarrow (`pip install --upgrade pyarrow`)
+without breaking PyBNesian. The dependencies are also managed by [vcpkg](https://vcpkg.io), so the
+build process is simpler and orchestrated by scikit-build-core and a CMakeLists.txt.
+
+- Some tests failed because `pandas` and `scipy` were updated. These issues have been fixed.
+
+- A bug in the `DiscreteFactor.sample()` function has been fixed. The previous implementation sampled equally from the first and last category of the `DiscreteFactor`.
+
+## v0.4.3
+
+- Fixed a bug in `DiscreteFactor` and others hybrid factors, such as `CLinearGaussianCPD` and `HCKDE`, where categorical data would not be correctly validated. This could lead to erroneous results or undefined behavior (often leading to segmentation fault). Thanks to Carlos Li for reporting this bug.
+
+- Support for Python 3.10 and `pyarrow>=9.0` has been added. Support for Python 3.6 has been deprecated, as `pyarrow` no longer supports it. 
+
+- manylinux2014 wheels are now used instead of manylinux2010, since `pyarrow` no longer provides manylinux2010 wheels.
+
 ## v0.4.2
 
 - Fixed important bug in OpenCL for NVIDIA GPUs, as they define small OpenCL constant memory. See [https://stackoverflow.com/questions/63080816/opencl-small-constant-memory-size-on-nvidia-gpu](https://stackoverflow.com/questions/63080816/opencl-small-constant-memory-size-on-nvidia-gpu).

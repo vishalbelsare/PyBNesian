@@ -149,3 +149,6 @@ docs/source/_build
 *.aux
 *.dvi
 *.synctex.gz
+tmp/
+vcpkg_installed/*
+.vscode
